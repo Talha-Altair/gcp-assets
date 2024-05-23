@@ -1,7 +1,6 @@
 from google.cloud import asset_v1
 from dotenv import load_dotenv
 import os
-import json
 
 load_dotenv(".env")
 
@@ -9,6 +8,8 @@ PROJECT_ID = os.getenv("PROJECT_ID")
 
 project_resource = f"projects/{PROJECT_ID}"
 
+
+# The Keys are GCP Asset URIs, The Values are it's Description
 supported_assets = {
     "compute.googleapis.com/Instance": "GCE VM",
     "sqladmin.googleapis.com/Instance": "CloudSQL Instance",
@@ -51,10 +52,6 @@ def fetch_assets():
         }
 
         json_data.append(asset_data)
-
-    with open("data/data.json", "w") as f:
-
-        json.dump(json_data, f)
 
     for data in json_data:
 
